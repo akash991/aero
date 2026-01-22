@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'python' ]
+        language: [ 'python' , "javascript-typescript" ]
 
     steps:
     - name: Checkout repository
@@ -32,8 +32,14 @@ jobs:
         # Optionally specify queries to run
         # queries: security-extended,security-and-quality
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+    # - name: Autobuild
+    #   uses: github/codeql-action/autobuild@v3
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v4
+      with:
+        languages: python
+        queries: security-extended,security-and-quality,default
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
