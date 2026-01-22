@@ -19,21 +19,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'python' ]
+        language: [ 'python' , "javascript-typescript" ]
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    # - name: Initialize CodeQL
+    #   uses: github/codeql-action/init@v3
+    #   with:
+    #     languages: ${{ matrix.language }}
+    #     # Optionally specify queries to run
+    #     # queries: security-extended,security-and-quality
+
+    # - name: Autobuild
+    #   uses: github/codeql-action/autobuild@v3
+
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
-        languages: ${{ matrix.language }}
-        # Optionally specify queries to run
-        # queries: security-extended,security-and-quality
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+        languages: python
+        queries: security-extended,security-and-quality
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
@@ -46,7 +52,7 @@ jobs:
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: codeql-sarif-results
+        name: codeql-sarif-results-${{ matrix.language }}-${{ github.run_id }}
         path: sarif-results
         retention-days: 30
 
