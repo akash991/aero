@@ -1,0 +1,6 @@
+pyyaml
+dynamodb-json
+json2html
+pyawscron
+requests
+cid-cmd
