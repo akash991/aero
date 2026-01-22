@@ -52,7 +52,7 @@ jobs:
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: codeql-sarif-results
+        name: codeql-sarif-results-${{ matrix.language }}-${{ github.run_id }}
         path: sarif-results
         retention-days: 30
 
